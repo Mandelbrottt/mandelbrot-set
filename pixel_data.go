@@ -25,13 +25,15 @@ func (d *pixelData) computeIterationCount(maxIterations uint64) {
 	x, y := 0.0, 0.0
 	d.iterations = 0
 
-	for x*x+y*y <= 4 && d.iterations < maxIterations {
+	for x*x+y*y <= 1<<16 && d.iterations < maxIterations {
 		xTemp := x*x - y*y + d.x0
 		y = 2*x*y + d.y0
 		x = xTemp
 		d.iterations++
 	}
 
+	d.x0 = x
+	d.y0 = y
 }
 
 func (d *pixelData) computeComplexCoords(xMin, xMax, yMin, yMax float64, width, height uint64) {

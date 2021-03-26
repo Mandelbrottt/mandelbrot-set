@@ -62,7 +62,19 @@ func mandelbrotSet(xMin, xMax, yMin, yMax float64, width, height, maxIterations 
 				p := newPixel(x, y)
 				p.computeComplexCoords(xMin, xMax, yMin, yMax, width, height)
 				p.computeIterationCount(maxIterations)
-				p.computeColor(maxIterations, col)
+
+				// Original code
+
+				// p.computeColor(maxIterations, col)
+
+				// Original Code
+
+				// My code //
+
+				var lengthSqr float64 = p.x0*p.x0 + p.y0*p.y0
+				p.computeColorContinuous(maxIterations, col, lengthSqr, 2)
+
+				// My code //
 
 				result.Lock()
 				result.img.Set(int(p.Px), int(p.Py), p.color)
